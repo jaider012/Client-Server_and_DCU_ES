@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arquitectura Cliente/Servidor y Diseño Centrado en el Usuario</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --background-color: #ecf0f1;
+        --text-color: #2c3e50;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: var(--background-color);
+        color: var(--text-color);
+      }
+
+      .navbar {
+        background-color: var(--primary-color);
+        padding: 1rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .navbar-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+      }
+
+      .navbar-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .navbar-links a:hover {
+        color: var(--secondary-color);
+      }
+
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 8rem 2rem 4rem;
+        text-align: center;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+      }
+
+      .card {
+        background: var(--background-color);
+        border-radius: 10px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .feature-item {
+        background: var(--background-color);
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .feature-item i {
+        font-size: 2rem;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+
+      .theme-toggle {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 1rem;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .dark-theme {
+        --primary-color: #1a1a1a;
+        --secondary-color: #2980b9;
+        --background-color: #121212;
+        --text-color: #ffffff;
+      }
+
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: var(--accent-color);
+        width: 0%;
+        transition: width 0.3s;
+      }
+
+      @media (max-width: 768px) {
+        .navbar-links {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="navbar">
+      <div class="navbar-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#cliente-servidor">Cliente/Servidor</a>
+        <a href="#dcu">DCU</a>
+        <a href="#ventajas">Ventajas</a>
+      </div>
+    </nav>
+
+    <header id="inicio">
+      <h1>Arquitectura Cliente/Servidor y DCU</h1>
+      <p>Explorando los fundamentos del desarrollo web moderno</p>
+    </header>
+
+    <main>
+      <section id="cliente-servidor" class="card">
+        <h2><i class="fas fa-server"></i> Arquitectura Cliente/Servidor</h2>
+        <p>
+          La arquitectura Cliente/Servidor es un modelo fundamental que define
+          la comunicación web moderna.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <i class="fas fa-lock"></i>
+            <h3>Centralización</h3>
+            <p>
+              La arquitectura centralizada permite gestionar recursos críticos
+              desde un punto único, facilitando la implementación de políticas
+              de seguridad coherentes, backups automatizados y actualizaciones
+              controladas. Los servidores actúan como custodios de datos
+              sensibles, reduciendo riesgos de fugas de información y
+              permitiendo auditorías centralizadas. Este modelo es esencial en
+              sectores como banca y salud donde la integridad de datos es
+              prioritaria.
+            </p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-expand-arrows-alt"></i>
+            <h3>Escalabilidad</h3>
+            <p>
+              La escalabilidad vertical y horizontal permite adaptarse a
+              demandas fluctuantes mediante clusterización de servidores o
+              aumento de capacidad hardware. Plataformas cloud como AWS o Azure
+              aprovechan esta característica para ofrecer escalado automático,
+              garantizando disponibilidad durante picos de tráfico sin
+              sobrecostos permanentes. Esta flexibilidad es crucial para
+              aplicaciones SaaS y comercios electrónicos estacionales.
+            </p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-tools"></i>
+            <h3>Mantenimiento</h3>
+            <p>
+              La separación de responsabilidades permite actualizar componentes
+              independientemente: se puede modernizar la interfaz cliente sin
+              afectar la lógica del servidor, o escalar la base de datos sin
+              cambios en el frontend. Esto reduce tiempos de inactividad y
+              permite implementar actualizaciones continuas (CI/CD) con impacto
+              controlado, facilitando la adopción de nuevas tecnologías de forma
+              progresiva.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="dcu" class="card">
+        <h2><i class="fas fa-users"></i> Diseño Centrado en el Usuario</h2>
+        <p>
+          Metodología que prioriza las necesidades y experiencias del usuario
+          final.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <i class="fas fa-smile"></i>
+            <h3>Satisfacción</h3>
+            <p>
+              El DCU prioriza la experiencia emocional mediante técnicas como
+              journey mapping y test A/B, creando interfaces intuitivas que
+              reducen la curva de aprendizaje. Incluye accesibilidad (WCAG) para
+              usuarios con discapacidades, y diseño responsive que se adapta a
+              contextos de uso variables. Estudios de Nielsen Norman Group
+              muestran que cada dólar invertido en UX genera hasta $100 en
+              retorno mediante mayor retención de usuarios.
+            </p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-coins"></i>
+            <h3>Ahorro</h3>
+            <p>
+              Identificar requerimientos reales desde el inicio mediante user
+              stories y pruebas de usabilidad previene costosos rediseños
+              posteriores. El modelo Lean UX reduce desperdicio de desarrollo en
+              features no utilizadas, mientras que herramientas como Hotjar
+              permiten optimizar flujos existentes. 
+            </p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-chart-line"></i>
+            <h3>Conversión</h3>
+            <p>
+              Un diseño orientado a conversiones optimiza puntos clave como
+              formularios, llamados a acción y arquitectura de información. El
+              DCU alinea objetivos de negocio con necesidades usuarias creando
+              sinergias medibles.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ventajas" class="card">
+        <h2><i class="fas fa-star"></i> Ventajas de Sitios Estáticos</h2>
+        <p>
+          Los sitios web estáticos ofrecen numerosas ventajas en el desarrollo
+          web moderno:
+        </p>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <i class="fas fa-bolt"></i>
+            <h3>Velocidad</h3>
+            <p>
+              Al eliminar procesamiento server-side y bases de datos, sitios
+              estáticos cargan en menos de 1s usando CDNs globales. Tecnologías
+              como Jamstack (JavaScript + APIs + Markup) permiten TTI (Time to
+              Interactive) 3x más rápidos que CMS tradicionales, crucial para
+              SEO y experiencia móvil.
+            </p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Seguridad</h3>
+            <p>
+              Sin bases de datos o ejecución server-side, la superficie de
+              ataque se reduce drásticamente. Plataformas como GitHub Pages
+              ofrecen hosting estático con protección DDoS integrada y SSL
+              automático. Según reportes de Sucuri, sitios estáticos tienen 90%
+              menos vulnerabilidades que WordPress, eliminando riesgos de
+              inyecciones SQL o XSS comunes en aplicaciones dinámicas.
+            </p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-feather"></i>
+            <h3>Simplicidad</h3>
+            <p>
+              La ausencia de lógica backend permite versionado simple con Git y
+              despliegues instantáneos via SSH o FTP. Generadores estáticos como
+              Hugo o Eleventy permiten crear sitios complejos con markdown y
+              plantillas, facilitando colaboración. Mantenimiento se reduce a
+              actualizar archivos HTML/CSS, sin preocuparse por compatibilidad
+              de plugins o actualizaciones de seguridad constantes.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <button class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
+    </button>
+
+    <script>
+      // Barra de progreso de lectura
+      window.onscroll = function () {
+        let winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        let height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+      };
+
+      // Cambio de tema claro/oscuro
+      const themeToggle = document.getElementById("themeToggle");
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-theme");
+        const icon = themeToggle.querySelector("i");
+        icon.classList.toggle("fa-moon");
+        icon.classList.toggle("fa-sun");
+      });
+
+      // Animación suave para las tarjetas
+      const cards = document.querySelectorAll(".card");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      cards.forEach((card) => {
+        card.style.opacity = 0;
+        card.style.transform = "translateY(20px)";
+        card.style.transition = "all 0.5s ease-out";
+        observer.observe(card);
+      });
+    </script>
+  </body>
+</html>
